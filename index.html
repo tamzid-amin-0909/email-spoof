@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content-width=device-width, initial-scale=1.0">
+    <title>Hacker Mail Panel</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0d0d0d;
+            color: #33ff33;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #0d0d0d;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px #33ff33;
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #33ff33;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            background-color: #0d0d0d;
+            border: 1px solid #33ff33;
+            color: #33ff33;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #33ff33;
+            color: #0d0d0d;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #28cc28;
+        }
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        .success, .error {
+            text-align: center;
+        }
+        .success {
+            color: #33ff33;
+        }
+        .error {
+            color: #ff3333;
+        }
+        .instructions-box {
+            display: none;
+            border: 1px solid #33ff33;
+            padding: 15px;
+            margin-top: 20px;
+            background-color: #0d0d0d;
+            border-radius: 8px;
+        }
+        .terms-box {
+            display: flex;
+            align-items: center;
+        }
+        .terms-box input {
+            width: auto;
+            margin-right: 8px;
+        }
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .link-btn {
+            width: 48%;
+            background-color: transparent;
+            border: 1px solid #33ff33;
+            color: #33ff33;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .link-btn:hover {
+            background-color: #28cc28;
+            color: #0d0d0d;
+        }
+        #accessDenied {
+            display: none;
+            text-align: center;
+            color: #ff3333;
+            font-size: 18px;
+        }
+        #countdown {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #33ff33;
+        }
+    </style>
+</head>
+<body>
+    <!-- Access Denied with Countdown Timer -->
+    <div id="accessDenied">
+        ❌ Access Denied!<br>
+        This site is available only between <b>5 PM to 7 PM</b>! ⏰<br>
+        <div id="countdown">⏳ Time remaining: <span id="timer"></span></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="mainContainer" style="display: none;">
+        <h2>💻 Hacker Mail Panel</h2>
+
+        <!-- Show Instructions Button -->
+        <button onclick="toggleInstructions()">📚 Show Instructions</button>
+
+        <!-- Instructions Box -->
+        <div id="instructions-box" class="instructions-box">
+            <ul>
+                <li>✅ Enter your email address in the <b>From</b> field.</li>
+                <li>✅ Enter the recipient’s email address in the <b>To</b> field.</li>
+                <li>✅ Provide a relevant <b>Subject</b> for the mail.</li>
+                <li>✅ Type your <b>Message</b> in the textarea.</li>
+                <li>✅ Make sure to accept the <b>Terms and Conditions</b> before sending.</li>
+                <li>✅ Click on <b>Send Mail</b> to deliver your message securely.</li>
+            </ul>
+        </div>
+
+        <!-- Mail Form -->
+        <form id="mailForm">
+            <label for="from">📩 From:</label>
+            <input type="email" id="from" name="from" required>
+
+            <label for="to">🎯 To:</label>
+            <input type="email" id="to" name="to" required>
+
+            <label for="sub">📄 Subject:</label>
+            <input type="text" id="sub" name="sub" required>
+
+            <label for="msg">📜 Message:</label>
+            <textarea id="msg" name="msg" rows="5" required></textarea>
+
+            <!-- Terms and Conditions Checkbox -->
+            <div class="terms-box">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">I accept the <a href="terms.html" onclick="showTerms()">Terms and Conditions</a></label>
+            </div>
+
+            <button type="button" onclick="sendMail()">🚀 Send Mail</button>
+        </form>
+
+        <div id="response"></div>
+
+        <!-- Join Now Buttons -->
+        <div class="links">
+            <button class="link-btn" onclick="window.open('https://instagram.com/sonictaradmin', '_blank')">📸 Join Now on Instagram</button>
+            <button class="link-btn" onclick="window.open('https://t.me/botsworldtar', '_blank')">⚡ Join Now on Telegram</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Check access time and start countdown
+        function checkAccessTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            // Access allowed only between 5 PM (17:00) and 7 PM (19:00)
+            if (hours >= 17 && hours < 19) {
+                document.getElementById('mainContainer').style.display = 'block';
+            } else {
+                document.getElementById('mainContainer').style.display = 'block';
+            }
+        }
+
+        // Start countdown to next available time
+        function startCountdown() {
+            const now = new Date();
+            let target = new Date();
+
+            // If time is before 5 PM, target is today 5 PM
+            if (now.getHours() < 17) {
+                target.setHours(17, 0, 0, 0);
+            }
+            // If after 7 PM, set countdown for next day
+            else {
+                target.setDate(target.getDate() + 1);
+                target.setHours(17, 0, 0, 0);
+            }
+
+            // Update countdown every second
+            setInterval(function () {
+                const now = new Date().getTime();
+                const distance = target - now;
+
+                if (distance > 0) {
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    document.getElementById('timer').innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+                } else {
+                    location.reload(); // Reload to allow access when time arrives
+                }
+            }, 1000);
+        }
+
+        // Show/Hide Instructions
+        function toggleInstructions() {
+            var instructions = document.getElementById("instructions-box");
+            if (instructions.style.display === "none" || instructions.style.display === "") {
+                instructions.style.display = "block";
+            } else {
+                instructions.style.display = "none";
+            }
+        }
+
+        // Show Terms and Conditions
+        function showTerms() {
+            alert("⚠️ WARNING!\n\nThis email system is intended for educational and testing purposes only.\n\n⚠️ Using this system for illegal activities, including unauthorized emails, spam, or phishing, is STRICTLY PROHIBITED and may result in legal consequences.\n\nProceed at your own risk.");
+        }
+
+        // Send Mail Function
+        function sendMail() {
+            const button = document.querySelector("button");
+            const formData = new FormData(document.getElementById('mailForm'));
+
+            // Check if terms are accepted
+            if (!document.getElementById("terms").checked) {
+                alert("❌ Please accept the Terms and Conditions before sending.");
+                return;
+            }
+
+            // Disable button after first click
+            button.disabled = true;
+            button.innerHTML = "⏳ Sending...";
+
+            fetch('mail.php?' + new URLSearchParams(formData), {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseDiv = document.getElementById('response');
+                if (data.status === 'success') {
+                    responseDiv.innerHTML = '✅ Mail sent successfully!';
+                    responseDiv.className = 'success';
+                } else {
+                    responseDiv.innerHTML = '❌ Failed to send mail. ' + data.mail_response;
+                    responseDiv.className = 'error';
+                }
+            })
+            .catch(error => {
+                document.getElementById('response').innerHTML = '❌ Error sending mail.';
+            })
+            .finally(() => {
+                // Re-enable button after response
+                button.disabled = false;
+                button.innerHTML = "🚀 Send Mail";
+            });
+        }
+
+        // Run time check on page load
+        window.onload = checkAccessTime;
+    </script>
+</body>
+</html>
