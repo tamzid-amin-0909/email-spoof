@@ -1,0 +1,64 @@
+[
+    {
+        "id": 1,
+        "name": "Apple Watch Series 8",
+        "brand": "Apple",
+        "originalPrice": 50000,
+        "salePrice": 40000,
+        "advancePayment": 10000,
+        "category": "Electronics",
+        "description": "The Apple Watch Series 8 features advanced health sensors, fitness tracking, and a sleek design. Perfect for staying connected and monitoring your health on the go.",
+        "tags": [
+            "smartwatch",
+            "apple",
+            "wearable",
+            "fitness"
+        ],
+        "gallery": [
+            "https:\/\/adminapi.applegadgetsbd.com\/storage\/media\/large\/Apple-Watch-Series-8-Red-GPS-3835.jpg",
+            "https:\/\/adminapi.applegadgetsbd.com\/storage\/media\/large\/Black-8338.jpg"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Samsung S24 Ultra",
+        "brand": "Samsung",
+        "originalPrice": 115000,
+        "salePrice": 93000,
+        "advancePayment": 3000,
+        "category": "Phone",
+        "description": "Samsung Galaxy S24 Ultra is the latest and greatest flagship phone from Samsung, and it's packed with features that are sure to impress even the most demanding users. It has a gorgeous 6.8-inch Dynamic LTPO AMOLED 2X display with a 120Hz refresh rate.",
+        "tags": [
+            "samsung",
+            "s24",
+            "ultra",
+            "samsung s24 ultra"
+        ],
+        "gallery": [
+            "https:\/\/d61s2hjse0ytn.cloudfront.net\/color\/864\/Titanium_Gray_S24_Ultra_1.webp",
+            "https:\/\/d61s2hjse0ytn.cloudfront.net\/color\/864\/Titanium_Black_S24_Ultra.webp",
+            "https:\/\/d61s2hjse0ytn.cloudfront.net\/color\/864\/Titanium_Violet_443E57.webp",
+            "https:\/\/d61s2hjse0ytn.cloudfront.net\/color\/864\/Titanium_Yellow_S24_Ultra.webp"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Sony Wireless Earbuds WF-1000XM5",
+        "brand": "Sony",
+        "originalPrice": 30000,
+        "salePrice": 25000,
+        "advancePayment": 5000,
+        "category": "Audio",
+        "description": "Experience unparalleled sound quality with Sony's WF-1000XM5 wireless earbuds, featuring industry-leading noise cancellation and up to 8 hours of battery life.",
+        "tags": [
+            "earbuds",
+            "wireless",
+            "audio",
+            "noise-cancellation"
+        ],
+        "gallery": [
+            "https:\/\/adminapi.applegadgetsbd.com\/storage\/media\/large\/Sony-WF-1000XM5-Wireless-Noise-Cancelling-Headphones-Black-1353.jpg",
+            "https:\/\/adminapi.applegadgetsbd.com\/storage\/media\/large\/Sony-WF-1000XM5-Wireless-Noise-Cancelling-Headphones-Silver-6930.jpg"
+        ]
+    }
+]
